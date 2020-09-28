@@ -7,18 +7,24 @@ import math
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
 from django.urls import reverse
-from .forms import *
+from .forms import user_address_detail_form
 from home.models import books
+import datetime
+from .models import user_address_detail, placedorder_book
+from coupons.models import coupon
+import pyrebase
 
 
 # Create your views here.
 
 
-def checkout(request):
+def checkout_page(request):
 
     if request.user.is_authenticated:
         dests = cart.objects.filter(buyer = request.user)
-
+        now = datetime.datetime.now()
+        print('000000000000------------------------000000000')
+        print(now)
         cart_count = 0
         cart_count = cart.objects.filter(buyer = request.user).count()
 
@@ -64,48 +70,103 @@ def checkout(request):
 
 
 
-def order_place(request):
 
-    if request.user.is_authenticated:
-
-        if request.method == 'POST':
-
-            form=orderplace_detail_form(request.POST)
-            form2=orderplace_detail_form(request.POST)
-            print(form.errors)
-           
-            if form.is_valid():
-
-                instance = form.save(commit=False)
-              
-
-                books_count = cart.objects.filter(buyer = request.user).count()
-                books_array = cart.objects.filter(buyer = request.user).count()
-                
-                for x in range(books_count):
-
-                    placedorder_book = books_array[x]
-                    buyer = request.user
-
-                    # i have to creata 2 form
+# code here for checkout insert daat into firebase must give name (placeorder_details) table
 
 
-                instance.save()
-                
-                return HttpResponseRedirect(reverse('index'))
-                
+def place_order(request):
+
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+
+            #step1 table1 
+            #code for saving address (new address)
+
+
+            
+            address_number = request.POST['address_number1']
+            
+
+            if address_number:
+                address_data = user_address_detail.objects.get(id = address_number)
+            
             else:
+
+                form = user_address_detail_form(request.POST)
+                print('-------------form 1 errors ----------')
+                print(form.errors)
+                if form.is_valid():
+
+                    instance = form.save(commit=False)
+
+                    buyer = request.user
+                    instance.save()
+                else:
+                    return render(request, 'about.html')
+
+
+            #step2  table2
+            # collecting data for placedorder_book table
+
+
+
+            if address_number:
+                address_data = user_address_detail.objects.get(id = address_number)
+
+            else:
+
+                address_data_1 = user_address_detail.objects.filter(buyer = request.user)
                 
-                return HttpResponseRedirect(reverse('checkout'))
+                for x in address_data_1:
+                    address_data_id = address_data_1.id
+                
+                address_data = user_address_detail.objects.get(id = address_data_1)
+
+            book_data = cart.objects.filter(buyer = request.user)
+            
+
+            for x in book_data:
+                
+                data_in =  x.id
+                print(data_in)
+                placedorder_book_data1 = cart.objects.get(id = data_in)
+                placedorder_book_data2 =  placedorder_book_data1.product_id.id
+                placedorder_book_data = books.objects.get(id = placedorder_book_data2)
+                address = address_data
+
+                if request.session.get('coupon_applied', None) != None:
+
+                    coupon1 = request.session.get('coupon_name')
+                    coupon_data = coupon.objects.get(code = coupon1)
+
+                else:
+
+                    coupon_data = coupon.objects.get(code = 'none') 
+
+
+                order_status = 1
+                date_time = datetime.datetime.now()
+                print('now i am here')
+                order_place = placedorder_book.objects.create(buyer = request.user, placedorder_book = placedorder_book_data, address = address, coupon = coupon_data, order_status = order_status, date_time = date_time)
+                order_place.save()
+                print('and now here')
+                return HttpResponseRedirect(reverse('login_signup_home'))
+                
 
         else:
-            print('somethong went wrong')
-            return render(request, 'contact.html')
+
+            return HttpResponseRedirect(reverse('login_signup_home'))
 
     else:
-        print('login first')
 
-        return render(request, 'loginsignup.html')
+        print('something wents wrong')
+        return HttpResponseRedirect(reverse('index'))
+
+    
+            
+
+            
+
 
 
 

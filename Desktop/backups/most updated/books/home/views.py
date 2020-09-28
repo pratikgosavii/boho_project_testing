@@ -19,8 +19,7 @@ def index(request):
         dests_usercart = cart.objects.filter(buyer=request.user)
 
         cart_count = cart.objects.filter(buyer = request.user).count()
-        print(cart_count)
-
+    
         if cart_count == 0:
             cart_count = None
             subtotal = 0
@@ -30,8 +29,6 @@ def index(request):
         
 
         else:
-
-            print('i am in')
 
             subtotal = 0
 

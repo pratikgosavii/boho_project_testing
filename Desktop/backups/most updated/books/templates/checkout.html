@@ -87,24 +87,28 @@
         			</div>
         		</div>
         		<div class="row">
+				<form action="placeorder" method="post">
+				{% csrf_token %}
         			<div class="col-lg-6 col-12">
+					
         				<div class="customer_details">
+						
         					<h3>Billing details</h3>
         					<div class="customar__field">
         						<div class="margin_between">
 	        						<div class="input_box space_between">
 	        							
-	        							<input type="text" placeholder="Name">
+	        							<input type="text" name="name" placeholder="Name">
 	        						</div>
 	        						<div class="input_box space_between">
 	        							
-	        							<input type="text" placeholder="Mobile number">
+	        							<input type="text" name="mobilenumber" placeholder="Mobile number">
 	        						</div>
         						</div>
 								<div class="margin_between">
 	        						<div class="input_box space_between">
 	        							
-	        							<input type="text" placeholder="Pincode">
+	        							<input type="text" name="pincode" placeholder="Pincode">
 	        						</div>
 									<!-- -->
 	        						<div class="input_box space_between">
@@ -115,28 +119,29 @@
 								
         						<div class="input_box ">
         							
-        							<textarea rows="3" cols="50" placeholder="sdsd" style="border: 1px solid #e1e1e1;" placeholder="Address (Area and Street)"> </textarea>
+        							<textarea rows="3" cols="50" placeholder="sdsd" style="border: 1px solid #e1e1e1;" name="fulladdress" placeholder="Address (Area and Street)"> </textarea>
         						</div>
 								
 								<div class="margin_between">
 									
 									<div class="input_box space_between">
-										<input type="text" placeholder="Landmark (optional)">
+										<input type="text" name="landmark" placeholder="Landmark (optional)">
+									</div>
+
+									
+									<div class="input_box space_between">
+										<input type="text" name="addresstype" placeholder="addres type">
 									</div>
 
 									<div class="input_box space_between">
-										<select class="select__option input_box space_between">
-											<option>Address type</option>
-											<option>Home (delivery between 9am - 9pm)</option>
-											<option>Office (delivery between 9am - 5pm)</option>
-										</select>
+										<input type="text" name="address_number1" placeholder="number">
 									</div>
+
 								</div>
 								
         						
         					</div>
         					
-							
         				</div>
 						<div class="margin_between">
 							<div class="container-fluid" style="padding-left:0px;">
@@ -227,9 +232,13 @@
 					          		<div class="payment-body">Pay with cash upon delivery.</div>
 						        </div>
 						    </div>
-					    </div>
-
+					    </div><br><br><br><br>
+						
+						
+							<input type="submit" id="submit" name="submit" value="checkout" style="background: #2e2e2e none repeat scroll 0 0;border-radius: 0;color: #fff;margin-left: 6px;display: inline-block;font-size: 12px;font-weight: 700;line-height: 34px;padding: 2px 20px 0;text-transform: uppercase;transition: all 0.4s ease 0s;border: 0 none;">
+						
         			</div>
+					</form>
         		</div>
         	</div>
         </section>

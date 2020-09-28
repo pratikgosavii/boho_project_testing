@@ -8,6 +8,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from requests import request
+from home.models import books
 import json
 # Create your views here.
 
@@ -154,3 +155,11 @@ def proceedToLogin(request,email,username,token,provider):
         user_one.backend='django.contrib.auth.backends.ModelBackend'
         auth.login(request,user_one)
         return "login_success"
+
+
+
+def home(request):
+
+    return HttpResponseRedirect(reverse('index'))
+
+
