@@ -33,22 +33,23 @@ def user_cart_addproduct(request):
                         data.quantity = data.quantity + 1
 
                     data.save()
+
+                    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
                 else:
                     
                     obj = cart.objects.create(product_id = producte, buyer = request.user)
                     obj.save()
+
+                    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
             else:
                 return render(request, 'error404')
 
 
         else:
             return render(request, 'error404')
-
-
-        
-
-
-        return HttpResponseRedirect(reverse('user_cart'))
 
     else:
 
