@@ -1,0 +1,751 @@
+{% load static %}
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/plugins.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/mobile.css' %}">
+
+  <!-- Cusom css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+
+  <!-- Modernizer js -->
+  <script src="{% static 'js/vendor/modernizr-3.5.0.min.js' %}"></script>
+  <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    nav {
+      line-height: 78px;
+      box-shadow: 0px 0px 1px 1px #ccc;
+      min-height: 78px;
+    }
+
+    hr {
+      display: flex;
+    }
+
+    .checkout-steps {
+
+      width: 40%;
+      color: #696B79;
+      padding: 0;
+      display: inline-block;
+      line-height: 20px;
+    }
+
+    .divider {
+      display: inline-block;
+      border-top: 1px dashed #696B79;
+      height: 4px;
+      width: 10%;
+    }
+
+    .active {
+      color: #20BD99;
+      border-bottom: 2px solid #20BD99;
+    }
+
+    .li {
+      display: inline;
+      text-align: -webkit-match-parent;
+    }
+
+
+    /* pop up code */
+
+    /* https://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, main {
+	display: block;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+/* -------------------------------- 
+
+Primary style
+
+-------------------------------- */
+
+
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+/* -------------------------------- 
+
+Modules - reusable parts of our design
+
+-------------------------------- */
+.img-replace {
+  /* replace text with an image */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 100%;
+  color: transparent;
+  white-space: nowrap;
+}
+
+/* -------------------------------- 
+
+xnugget info 
+
+-------------------------------- */
+.cd-nugget-info {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  bottom: 0;
+  left: 0;
+}
+.cd-nugget-info a {
+  position: relative;
+  font-size: 14px;
+  color: #5e6e8d;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.no-touch .cd-nugget-info a:hover {
+  opacity: .8;
+}
+.cd-nugget-info span {
+  vertical-align: middle;
+  display: inline-block;
+}
+.cd-nugget-info span svg {
+  display: block;
+}
+.cd-nugget-info .cd-nugget-info-arrow {
+  fill: #5e6e8d;
+}
+
+/* -------------------------------- 
+
+Main components 
+
+-------------------------------- */
+header {
+  height: 200px;
+  line-height: 200px;
+  text-align: center;
+  background-color: #5e6e8d;
+  color: #FFF;
+}
+header h1 {
+  font-size: 20px;
+  font-size: 1.25rem;
+}
+
+.cd-popup-trigger {
+  display: block;
+  width: 170px;
+  height: 50px;
+  line-height: 50px;
+  margin: 3em auto;
+  text-align: center;
+  color: #FFF;
+  font-size: 14px;
+  font-size: 0.875rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 50em;
+  background: #35a785;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.07);
+}
+@media only screen and (min-width: 1170px) {
+  .cd-popup-trigger {
+    margin: 6em auto;
+  }
+}
+
+/* -------------------------------- 
+
+xpopup 
+
+-------------------------------- */
+.cd-popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(94, 110, 141, 0.9);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+}
+.cd-popup.is-visible {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+  transition: opacity 0.3s 0s, visibility 0s 0s;
+}
+
+.cd-popup-container {
+  position: relative;
+  width: 50%;
+  min-width: 510px;
+  min-width: 400px;
+  margin: 4em auto;
+  background: #FFF;
+  border-radius: .25em .25em .4em .4em;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  -webkit-transform: translateY(-40px);
+  -moz-transform: translateY(-40px);
+  -ms-transform: translateY(-40px);
+  -o-transform: translateY(-40px);
+  transform: translateY(-40px);
+  /* Force Hardware Acceleration in WebKit */
+  -webkit-backface-visibility: hidden;
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+.cd-popup-container p {
+  padding: 3em 1em;
+}
+.cd-popup-container .cd-buttons:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.cd-popup-container .cd-buttons li {
+  float: left;
+  width: 50%;
+  list-style: none;
+}
+.cd-popup-container .cd-buttons a {
+  display: block;
+  height: 60px;
+  line-height: 60px;
+  text-transform: uppercase;
+  color: #FFF;
+  -webkit-transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+.cd-popup-container .cd-buttons li:first-child a {
+  background: #fc7169;
+  border-radius: 0 0 0 .25em;
+}
+.no-touch .cd-popup-container .cd-buttons li:first-child a:hover {
+  background-color: #fc8982;
+}
+.cd-popup-container .cd-buttons li:last-child a {
+  background: #b6bece;
+  border-radius: 0 0 .25em 0;
+}
+.no-touch .cd-popup-container .cd-buttons li:last-child a:hover {
+  background-color: #c5ccd8;
+}
+.cd-popup-container .cd-popup-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+}
+.cd-popup-container .cd-popup-close::before, .cd-popup-container .cd-popup-close::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  width: 14px;
+  height: 3px;
+  background-color: #8f9cb5;
+}
+.cd-popup-container .cd-popup-close::before {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  left: 8px;
+}
+.cd-popup-container .cd-popup-close::after {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  right: 8px;
+}
+.is-visible .cd-popup-container {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+@media only screen and (min-width: 1170px) {
+  .cd-popup-container {
+    margin: 8em auto;
+  }
+}
+
+    /* pop up code end */
+  </style>
+
+
+</head>
+
+<body>
+
+  <nav class="d-flex justify-content-between align-items-center">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="Logo">
+      <a href="{{request.META.HTTP_REFERER|escape}}">Back</a>
+      </div>
+
+      <ol class="checkout-steps d-none d-lg-block">
+        <li class="step step1 li">BAG</li>
+        <li class="divider"></li>
+        <li class="step step2 active li">ADDRESS</li>
+        <li class="divider"></li>
+        <li class="step step3 li">PAYMENT</li>
+      </ol>
+
+      <div class="trust">
+        <img src="https://constant.myntassets.com/checkout/assets/img/sprite-secure.png" height="28" widhth="26"
+          alt="img">
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="padding:0px 0px;">
+    <div class="row">
+      <div class="col-12 offset-lg-1 col-md-7">
+        
+
+        <!-- Offers -->
+         {% if saved_user_addresses_first %}
+        <div class="card m-3 p-3">
+        <div style="display: flex;">
+          <h5> Select Deliery Address </h5>
+        </div>
+        <div style="display: contents;">
+
+	        <div style="width:fit-content;flaot:rightfloat: right;right: 23px;border: 1px solid #db8173;cursor: pointer;color:#db8173;border-radius: 3px;position:absolute;right:12px;padding: 1px 16px;" class="apply" >Add Address</div>        
+
+	        <br>
+
+          </div> 
+
+
+        </div>
+
+        {% endif %}
+        <!-- Offers  -->
+       
+        <!-- My shoping bag -->
+
+        {% if saved_user_addresses_first %}
+
+          <div class="container d-flex justify-content-between align-items-center px-3">
+            <h5 style="font-weight:600;">Default Address</h5>
+          </div>
+        <!-- My shoping bag -->
+
+        {% endif %}
+
+        <div class="card m-3 p-2">
+       {% if saved_user_addresses_first %}
+         
+                
+          <div class="card-body row">
+            <div class="col-7 offset-right-2" style="margin-left:10px;">
+            
+                <div style="float:left;position: absolute;top: 11px;">
+                    <input type="radio" id="first_address" name="option"  onclick="handleClick(this)" value="{{ saved_user_addresses_first.id }}" checked="checked">
+                </div>
+
+                <div style="color:#585858;font-weight:400;margin-left: 43px;">
+                    
+                    <h6 style="color:#707070;margin-top:5px;"> {{ saved_user_addresses_first.name }} </h6><br>
+                    <p class="card-text mb-6"> {{  saved_user_addresses_first.address_full }} </p>
+                    <p class="card-text mb-6"> {{ landmaark }} </p>
+                    <p class="card-text mb-6"> Akola - {{ saved_user_addresses_first.pincode }} </p>
+                    <p class="card-text mb-6"> {{ saved_user_addresses_first.mobilenumber }} </p>  {% if saved_user_addresses_first.alternate_mobilenumber %} <p class="card-text mb-6"> if alternate mobile number </p> {% endif %}
+                </div> <br>
+                  <button class="buttoncustom" style="margin:5px 5px;">Edit</button>
+                  <a href="{% url 'address_remove' saved_user_addresses_first.id %}"><button class="buttoncustom" style="margin:5px 5px;">Remove</button></a>
+              </div>
+            </div>
+            
+
+        {% else %}
+
+                     <form action="{% url 'add_address' %}" method="post">
+
+                     {% csrf_token %}
+
+                            <h5> Add delivery address </h5> <br>
+
+                            <div class="customer_details">
+        
+
+                                <div class="customar__field">
+									<div class="row">
+										<div class="input_box col-6">
+                                            <lable> Name </lable>
+											<input type="text" id="1"  name="name" placeholder=""  >
+										</div>
+										<div class="input_box col-6">
+                                            <lable>Mobile number</lable>
+											<input type="text" id="2" name="mobilenumber" >
+										</div>
+									</div>
+									<div class="row">
+										<div class="input_box col-6">
+                                            <lable>Pincode</lable>
+											<input type="text" id="3" name="pincode" >
+										</div>
+										<div class="input_box col-6">
+                                             <lable>Full address</lable>
+											<input type="text" name="fulladdress" >
+										</div>
+									</div>
+
+								
+
+									<div class="row">
+										<div class="input_box col-6">
+                                            <lable>Locality</lable>
+											<input type="text" id="4" name="locality"   >
+										</div>
+										<div class="input_box col-6">
+                                             <lable>District </lable>
+											<input type="text" id="5"  name="district" >
+										</div>
+									</div>
+
+                                    <div class="row">
+										<div class="input_box col-6">
+                                            <lable>Address type</lable>
+											<input type="text" id="4" name="addresstype"   >
+										</div>
+										
+									</div>
+								</div>
+                                <input type="submit" id="submit_btn" value="Submit"  style="background: #2e2e2e none repeat scroll 0 0;margin-top: 10px;border-radius: 0;color: #fff;margin-left: 6px;display: inline-block;font-size: 12px;font-weight: 700;line-height: 34px;padding: 2px 20px 0;text-transform: uppercase;transition: all 0.4s ease 0s;border: 0 none;">
+                                
+							</div>
+
+                        </form>
+
+        {% endif %}
+         
+        </div>
+
+     
+
+     
+        {% if saved_user_addresses|slice:"1:" %}
+
+        <div class="container d-flex justify-content-between align-items-center px-3">
+          <h5 style="font-weight:600;">Address({{ summary_count }} item)</h5>
+        </div>
+        <!-- My shoping bag -->
+
+          
+
+        {% endif %}
+
+        <div class="card m-3 p-2">
+         {% if saved_user_addresses|slice:"1:" %}
+        {% for dest in saved_user_addresses|slice:"1:" %}
+            <div class="card-body row">
+                
+                <div class="col-7 offset-right-2" style="margin-left:10px;">
+                    <div style="float:left;position: absolute;top: 11px;">
+                        <input type="radio" id="address{{ dest.id }}" name="option" value="{{ dest.id }}">
+                    </div>
+
+                    <div style="color:#585858;font-weight:400;margin-left: 43px;">
+                        
+                        <h6 style="color:#707070;margin-top:5px;"> {{ dest.name }} </h6><br>
+                        <p class="card-text mb-6"> {{  dest.address_full }} </p>
+                        <p class="card-text mb-6"> {{ landmaark }} </p>
+                        <p class="card-text mb-6"> Akola - {{ dest.pincode }} </p>
+                        <p class="card-text mb-6"> {{ dest.mobilenumber }} </p>  {% if dest.alternate_mobilenumber %} <p class="card-text mb-6"> if alternate mobile number </p> {% endif %}
+                    </div> <br>
+                    
+                      <button class="buttoncustom" style="margin:5px 5px;">Edit</button>
+                      <a href="{% url 'address_remove' dest.id %}"><button class="buttoncustom" style="margin:5px 5px;">Remove</button></a>
+
+                </div>
+            </div>
+            
+        
+            {% endfor %}
+                
+            <hr class="my-2" />
+            {% endif %}
+
+         
+        </div>
+      
+    </div>
+
+    
+    
+
+
+      <!-- right colum -->
+        <div class="col-12 col-md-4 d-flex flex-column mt-3">
+
+            <div class="card p-2">
+            <small class="text-muted" style="font-size: 12px;font-weight: 600;">Deliery Estimates</small>
+            <div style="display:flex;">
+                <div>
+                    <p>produts</p>
+
+                </div>
+                
+
+            </div>
+
+            <hr>
+            <small class="text-muted"  style="font-size: 12px;font-weight: 600;">Price details</small><br>
+
+            <div>
+
+                <div style="float:left;">
+                    <p> Total MRP</p>
+                    {% if coupon %}<p> Coupon Discount</p> {% endif %}
+                    <p> Deliery Fee</p> 
+                    <br><hr><br>
+                    <p style="font-weight: 600;font-size: 15px;"> Total Amount </p>
+                </div>
+
+                <div style="float:right;text-align: end;">
+                    <p> {{ summary_total }} </p>
+                    <p> {% if discount_calculate %}- {{ discount_calculate }}  {% endif %} </p>
+
+                    <p> 0</p>
+
+                    <br><hr><br>
+
+                    <p style="font-weight: 600;font-size: 15px;">{{ total_after_discount }}</p>
+
+                </div>
+
+                
+                
+            
+            </div>
+
+          
+
+
+        </div>
+          <input type="button" id="submit_btn" value="place order" onclick="address()" style="background: #2e2e2e none repeat scroll 0 0;margin-top: 10px;border-radius: 0;color: #fff;margin-left: 6px;display: inline-block;font-size: 12px;font-weight: 700;line-height: 34px;padding: 2px 20px 0;text-transform: uppercase;transition: all 0.4s ease 0s;border: 0 none;">
+
+
+      </div>
+      <!-- right column  -->
+
+    </div>
+  </div>
+	
+
+<div class="cd-popup" role="alert">
+	<div class="cd-popup-container">
+    
+        <p style="font-weight: 600;text-align: left;padding: 20px;"> Apply Coupon </p>
+
+        <hr>
+         <form action="{% url 'add_address' %}" method="post">
+
+                     {% csrf_token %}
+
+                            <h5> Add delivery address </h5> <br>
+
+                            <div class="customer_details">
+        
+
+                                <div class="customar__field">
+									<div class="row">
+										<div class="input_box col-6">
+                                            <lable > Name </lable>
+											<input type="text" style="position: inherit;left: 10px;" id="1"  name="name" placeholder=""  >
+										</div>
+										<div class="input_box col-6">
+                                            <lable>Mobile number</lable>
+											<input type="text" style="position: inherit;right: 10px;" id="2" name="mobilenumber" >
+										</div>
+									</div>
+									<div class="row">
+										<div class="input_box col-6">
+                                            <lable>Pincode</lable>
+											<input type="text" style="position: inherit;left: 10px;" id="3" name="pincode" >
+										</div>
+										<div class="input_box col-6">
+                                             <lable>Full address</lable>
+											<input type="text" style="position: inherit;right: 10px;" name="fulladdress" >
+										</div>
+									</div>
+
+								
+
+									<div class="row">
+										<div class="input_box col-6">
+                                            <lable>Locality</lable>
+											<input type="text" style="position: inherit;left: 10px;" id="4" name="locality"   >
+										</div>
+										<div class="input_box col-6">
+                                             <lable>District </lable>
+											<input type="text" style="position: inherit;right: 10px;" id="5"  name="district" >
+										</div>
+									</div>
+
+                                    <div class="row">
+										<div class="input_box col-6">
+                                            <lable>Address type</lable>
+											<input type="text" style="position: inherit;left: 10px;" id="4" name="addresstype"   >
+										</div>
+										
+									</div>
+								</div>
+                                <input type="submit" id="submit_btn" value="Submit"  style="background: #2e2e2e none repeat scroll 0 0;margin-top: 10px;border-radius: 0;color: #fff;margin-left: 6px;display: inline-block;font-size: 12px;font-weight: 700;line-height: 34px;padding: 2px 20px 0;text-transform: uppercase;transition: all 0.4s ease 0s;border: 0 none;">
+                                
+							</div>
+
+                        </form>
+		<a href="#0" class="cd-popup-close img-replace">Close</a>
+	</div> 
+</div> 
+
+
+</body>
+
+<!-- JS Files -->
+<script src="{% static 'js/vendor/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/active.js' %}"></script>
+
+<script>
+
+
+
+function address(){
+
+    var ele = document.getElementsByTagName('input');
+
+    var xhr = new XMLHttpRequest();
+
+    
+
+              
+    for(i = 0; i < ele.length; i++) {
+            
+        if(ele[i].type="radio") {
+
+            alert('1')
+            
+            if(ele[i].checked){
+                address_number = ele[i].value 
+                console.log(address_number)
+                alert('2')
+
+               
+
+                break;
+            }
+                        
+        }
+    }
+
+                
+    xhr.open("POST", "http://127.0.0.1:8000/checkout/address_session",true);
+
+    xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+    xhr.send("address="+address_number);
+
+
+     xhr.addEventListener("readystatechange", function() {
+        if(this.readyState === 4) {
+            console.log(this.responseText);
+            if(this.responseText=="success"){
+              alert('yes')
+                location='payment';
+            }
+            else{
+
+              alert('no')
+
+                location='address';
+            }
+            
+        }
+        })
+
+}
+
+
+
+  //code for popup
+
+  jQuery(document).ready(function($){
+	//open popup
+	$('.apply').on('click', function(event){
+		event.preventDefault();
+		$('.cd-popup').addClass('is-visible');
+	});
+	
+	//close popup
+	$('.cd-popup').on('click', function(event){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
+			event.preventDefault();
+			$(this).removeClass('is-visible');
+		}
+	});
+	//close popup when clicking the esc keyboard button
+	$(document).keyup(function(event){
+    	if(event.which=='27'){
+    		$('.cd-popup').removeClass('is-visible');
+	    }
+    });
+});
+
+
+
+
+
+</script>
+
+</html>

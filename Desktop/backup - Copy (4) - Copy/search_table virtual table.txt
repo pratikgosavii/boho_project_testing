@@ -1,0 +1,5 @@
+for enabling search
+
+1) CREATE VIRTUAL TABLE search_table USING fts3( id, new, bestseller, trending, popular, kids, other, cook, childern, adventure, biographic ,name, dec, standard, pattern, author);
+
+2) insert into search_table (id, new, bestseller, trending, popular, kids, other, cook, childern, adventure, biographic ,name, dec, standard, pattern, author) select id, new, bestseller, trending, popular, kids, other, cook, childern, adventure, biographic ,name, dec, standard, pattern, author from home_books;
